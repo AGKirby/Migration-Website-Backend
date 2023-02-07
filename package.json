@@ -1,0 +1,8 @@
+{
+  "type": "module",
+  "dependencies": {
+    "box-node-sdk": "^2.8.1",
+    "boxsdk": "^0.2.11",
+    "mysql": "^2.18.1"
+  }
+}
