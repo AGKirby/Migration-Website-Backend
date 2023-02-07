@@ -1,23 +1,23 @@
 import { getFileInfoById } from '../Control/FetchBoxData'
 
 export class Publication {
-    constructor(id, title, creationDate, author, contentURL, publicationIdsIn, tags) {
+    constructor(id, title, creationDate, author, fileId, tags) {
         this.id = id                                    // integer, unique identifer
         this.title = title                              // string
         this.creationDate = creationDate                // date
         this.author = author                            // string
         this.fileId = fileId                            // int
-        this.publicationIdsIn = publicationIdsIn        // list of integers
+        // this.publicationIdsIn = publicationIdsIn        // list of integers
         this.tags = tags                                // list of strings
     }
 
     async getContent() {
-        const content = await getFileInfoById(this.contentURL)
+        const content = await getFileInfoById(this.fileId)
         return content;
     }
 }
 
-// export class Publication {
+// export class Artwork {
 //     constructor(id, title, creationDate, author, contentURL, artworkIdsContains, tags) {
 //         this.id = id                                    // integer, unique identifer
 //         this.title = title                              // string

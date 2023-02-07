@@ -94,8 +94,8 @@ CREATE TABLE artwork_has
 CREATE TABLE program_has
 (
   Program_ID INT NOT NULL,
-  ID INT NOT NULL,
-  PRIMARY KEY (Program_ID, ID),
+  Tag VARCHAR(32) NOT NULL,
+  PRIMARY KEY (Program_ID, Tag),
   FOREIGN KEY (Tag) REFERENCES Tag(Tag),
   FOREIGN KEY (Program_ID) REFERENCES Program(ID)
 );
