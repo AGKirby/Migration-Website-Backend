@@ -1,30 +1,21 @@
+CREATE TABLE Publication_Type 
+(
+  Publication_Type VARCHAR(32) NOT NULL,
+  PRIMARY KEY(Publication_Type)
+);
+
 CREATE TABLE Publication
 (
   ID INT NOT NULL,
   Title VARCHAR(32) NOT NULL,
-  Author VARCHAR(32),
+  Author VARCHAR(64),
   Date DATE NOT NULL,
-  Box_File_ID INT NOT NULL,
-  File_Type VARCHAR(32) NOT NULL,
-  PRIMARY KEY (ID)
-  FOREIGN KEY (File_Type) REFERENCES File_Type(File_Type)
+  Box_File_ID VARCHAR(32) NOT NULL,
+  Publication_Type VARCHAR(32) NOT NULL,
+  PRIMARY KEY (ID),
+  FOREIGN KEY (Publication_Type) REFERENCES Publication_Type(Publication_Type)
 );
 
-CREATE TABLE File_Type 
-(
-  File_Type VARCHAR(32) NOT NULL,
-  PRIMARY KEY(File_Type)
-)
-
--- CREATE TABLE Artwork
--- (
---   ID INT NOT NULL,
---   Title VARCHAR(32) NOT NULL,
---   Author VARCHAR(32) NOT NULL,
---   Date DATE NOT NULL,
---   Box_File_ID INT NOT NULL,
---   PRIMARY KEY (ID)
--- );
 
 CREATE TABLE Program
 (
@@ -39,22 +30,12 @@ CREATE TABLE Program
 
 CREATE TABLE Institution
 (
+  ID INT NOT NULL,
   Name VARCHAR(32) NOT NULL,
   URL VARCHAR(64) NOT NULL,
-  ID INT NOT NULL,
   PRIMARY KEY (ID)
 );
 
-
-
--- CREATE TABLE artwork_in
--- (
---   Artwork_ID INT NOT NULL,
---   Publication_ID INT NOT NULL,
---   PRIMARY KEY (Artwork_ID, Publication_ID),
---   FOREIGN KEY (Artwork_ID) REFERENCES Artwork(ID),
---   FOREIGN KEY(Publication_ID) REFERENCES Publication(ID)
--- );
 
 CREATE TABLE Institution_Hosts
 (
@@ -79,15 +60,6 @@ CREATE TABLE publication_has
   Tag VARCHAR(32) NOT NULL,
   PRIMARY KEY (Publication_ID, Tag),
   FOREIGN KEY (Publication_ID) REFERENCES Publication(ID),
-  FOREIGN KEY (Tag) REFERENCES Tag(Tag)
-);
-
-CREATE TABLE artwork_has
-(
-  Artwork_ID INT NOT NULL,
-  Tag VARCHAR(32) NOT NULL,
-  PRIMARY KEY (Artwork_ID, Tag),
-  FOREIGN KEY (Artwork_ID) REFERENCES Artwork(ID),
   FOREIGN KEY (Tag) REFERENCES Tag(Tag)
 );
 

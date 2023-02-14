@@ -23,17 +23,17 @@ const client = boxSDK.getBasicClient(ACCESS_TOKEN)
  * GitHub Reference: https://github.com/box/box-node-sdk
 ***/ 
 
-const fileId = 932526455922
-const folderId = 158546659531
-const url = `${BASE_URL}files/${fileId}`
-// const url = `${BASE_URL}folders/${folderId}`
-console.log(url)
+// const fileId = 932526455922
+// const folderId = 158546659531
+// const url = `${BASE_URL}files/${fileId}`
+// // const url = `${BASE_URL}folders/${folderId}`
+// console.log(url)
 
-const response = await client.get(url, {qs: {fields: 'id,name'}})
-const fileInfo = response.body
+// const response = await client.get(url, {qs: {fields: 'id,name'}})
+// const fileInfo = response.body
 
-console.log(response.body)
-console.log(`File "${fileInfo.name}" has a size of ${fileInfo.size} bytes`)
+// console.log(response.body)
+// console.log(`File "${fileInfo.name}" has a size of ${fileInfo.size} bytes`)
 
 
 

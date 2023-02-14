@@ -3,7 +3,7 @@ import mysql from 'mysql';
 
 var databaseConnection = mysql.createConnection({
     host: "localhost",
-    database: "migration_website",
+    database: "migration_website_v2",
     user: "root",
     password: "password"
 });
