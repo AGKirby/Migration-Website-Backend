@@ -12,6 +12,7 @@ CREATE TABLE Publication
   Date DATE NOT NULL,
   Box_File_ID VARCHAR(32) NOT NULL,
   Publication_Type VARCHAR(32) NOT NULL,
+  Publication_File BLOB,
   PRIMARY KEY (ID),
   FOREIGN KEY (Publication_Type) REFERENCES Publication_Type(Publication_Type)
 );

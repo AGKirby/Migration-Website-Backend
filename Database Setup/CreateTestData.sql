@@ -7,7 +7,7 @@ INSERT INTO publication_type (Publication_Type) VALUES ("Excerpt");
 
 -- Publication initial values
 INSERT INTO publication (ID, Title, Author, Date, Box_File_ID, Publication_Type) 
-    VALUES (1, "Press Kit", "Jennifer Reimer Recio", DATE('2022-03-16'), "1005900768212", "Publication");
+    VALUES (1, "Press Kit", "Jennifer Reimer Recio", DATE('2022-03-16'), "1005900768212", "Publication", LOAD_FILE('C:\Users\adamg\Documents\College\12 Winter 2023\Capstone\MigrationWebsiteBackend\Database Setup\Blobs\HelloWorld.txt'));
 INSERT INTO publication (ID, Title, Author, Date, Box_File_ID, Publication_Type) 
     VALUES (2, "Press Release 1", "Jennifer Reimer Recio,Stefan Maneval", DATE('2022-03-17'), "932526455922", "Publication");
 INSERT INTO publication (ID, Title, Author, Date, Box_File_ID, Publication_Type) 

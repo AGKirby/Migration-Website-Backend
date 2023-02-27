@@ -3,7 +3,7 @@ import boxSDK from 'box-node-sdk'
 const BASE_URL = "https://api.box.com/2.0/"
 const CLIENT_ID = "8oj6sfy3ykizu43qghtqrf84nsblha6e"
 const CLIENT_SECRET = "H0ihKaBLlAoRVfLZvkIIfUvaC4VysJMQ"
-const ACCESS_TOKEN = "cxYR1MESq6JrocpTXw6EMQiNCNfXCUy"
+const ACCESS_TOKEN = "BXr8PauKq7d5KqSacDw9JZlHIRx7iyjQ"
 
 const client = boxSDK.getBasicClient(ACCESS_TOKEN)
 
@@ -14,7 +14,7 @@ const client = boxSDK.getBasicClient(ACCESS_TOKEN)
  *
  * 2. Get File Information with fileId and Access Token: 
  * curl -i -X GET "https://api.box.com/2.0/files/:fileId" \
-     -H "Authorization: Bearer cxYR1MESq6JrocpTXw6EMQiNCNfXCUy"
+     -H "Authorization: Bearer BXr8PauKq7d5KqSacDw9JZlHIRx7iyjQ"
  * Reference: https://developer.box.com/reference/get-files-id/ 
  * 
  * 3. Download File Contents
@@ -36,6 +36,11 @@ const client = boxSDK.getBasicClient(ACCESS_TOKEN)
 // console.log(`File "${fileInfo.name}" has a size of ${fileInfo.size} bytes`)
 
 
+// client.files.get(fileId)
+//     .then(file => {
+//         console.log("Found file data!")
+//         console.log(file)
+//     })
 
 export async function getFileInfoById(fileId) {
     const url = `${BASE_URL}files/${fileId}`

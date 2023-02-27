@@ -29,7 +29,8 @@ function rowToPublication(row, tags = []) {
         row.Date,
         row.Author,
         row.Box_File_ID,
-        tags
+        tags,
+        row.Publication_File
     )
 }
 

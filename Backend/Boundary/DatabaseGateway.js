@@ -4,23 +4,23 @@ import {rowsToPublicationList, rowsToProgramList, rowsToInstitutionList} from '.
 
 
 export function getAllPublications(callback) {
-    _getAllPublications("Publication", callback)
+    getAllPublicationsByType("Publication", callback)
 }
 
 export function getAllArtworks(callback) {
-    _getAllPublications("Artwork", callback)
+    getAllPublicationsByType("Artwork", callback)
 }
 
 export function getAllVideos(callback) {
-    _getAllPublications("Video", callback)
+    getAllPublicationsByType("Video", callback)
 }
 
 export function getAllExcerpts(callback) {
-    _getAllPublications("Excerpt", callback)
+    getAllPublicationsByType("Excerpt", callback)
 }
 
-function _getAllPublications(type, callback) {
-    const sql = `SELECT p.ID, p.Title, p.Author, p.Date, p.Box_File_ID, ph.Tag 
+function getAllPublicationsByType(type, callback) {
+    const sql = `SELECT p.ID, p.Title, p.Author, p.Date, p.Box_File_ID, ph.Tag, p.Publication_File 
                  FROM publication p 
                  LEFT JOIN publication_has ph ON p.ID = ph.Publication_ID
                  WHERE p.Publication_Type = ?
@@ -38,7 +38,7 @@ function _getAllPublications(type, callback) {
 }
 
 export function getPublicationById(id, callback) {
-    const sql = `SELECT p.ID, p.Title, p.Author, p.Date, p.Box_File_ID, ph.Tag 
+    const sql = `SELECT p.ID, p.Title, p.Author, p.Date, p.Box_File_ID, ph.Tag, p.Publication_File 
                  FROM publication p 
                  LEFT JOIN publication_has ph ON p.ID = ph.Publication_ID
                  WHERE p.ID = ?
@@ -131,28 +131,33 @@ export function getInstitutionById(id, callback) {
 // Test Code: 
 async function test() {
     /* Test Publications */
-    getAllPublications((results) => {
-        console.log("Test Publications: ")
-        printResults(results)
+    // getAllPublications((results) => {
+    //     console.log("Test Publications: ")
+    //     printResults(results)
+    // })
+    // getPublicationById(1, printResults)
+    // getPublicationById(13, printResults)
+    // getAllArtworks(printResults)
+    // getAllExcerpts(printResults)
+    // /* Test Programas */
+    // getAllPrograms((results) => {
+    //     console.log("Test Programs: ")
+    //     printResults(results)
+    // })
+    // getProgramById(4, printResults)
+    // getProgramById(5, printResults)
+    // /* Test Institutions */
+    // getAllInstitutions((results) => {
+    //     console.log("Test Institutes: ")
+    //     printResults(results)
+    // })
+    // getInstitutionById(1, printResults)
+    // getInstitutionById(3, printResults)
+    getPublicationById(1, async aPublication => {
+        console.log("Publication", aPublication)
+        console.log(aPublication.blobFile)
+        console.log(await aPublication.readFileData())
     })
-    getPublicationById(1, printResults)
-    getPublicationById(13, printResults)
-    getAllArtworks(printResults)
-    getAllExcerpts(printResults)
-    /* Test Programas */
-    getAllPrograms((results) => {
-        console.log("Test Programs: ")
-        printResults(results)
-    })
-    getProgramById(4, printResults)
-    getProgramById(5, printResults)
-    /* Test Institutions */
-    getAllInstitutions((results) => {
-        console.log("Test Institutes: ")
-        printResults(results)
-    })
-    getInstitutionById(1, printResults)
-    getInstitutionById(3, printResults)
     console.log("Done.")
     closeDatabaseConnection()
 }

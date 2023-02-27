@@ -1,17 +1,29 @@
+import { Readable } from 'stream';
+
 import { getFileInfoById } from '../Control/FetchBoxData.js'
 
 export class Publication {
-    constructor(id, title, creationDate, author, fileId, tags) {
+    constructor(id, title, creationDate, author, fileId, tags, blob) {
         this.id = id                                    // integer, unique identifer
         this.title = title                              // string
         this.creationDate = creationDate                // date
         this.author = author                            // string
         this.fileId = fileId                            // int
         this.tags = tags                                // list of strings
+        this.blobFile = blob                            // Buffer
+    }
+
+    async readFileData() {
+        const stream = Readable.from(this.blobFile);
+        let content = "";
+        for await (const chunk of stream) {
+            content += chunk;
+        }
+        return content;
     }
 
     async getContent() {
-        const content = await getFileInfoById(this.fileId)
+        const content = await getFileInfoById(this.fileId);
         return content;
     }
 }
