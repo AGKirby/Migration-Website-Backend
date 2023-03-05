@@ -22,6 +22,12 @@ export class Publication {
         return content;
     }
 
+    async getFileDataUrl() {
+        const urlCreator = window.URL || window.webkitURL
+        const fileUrl = urlCreator.createObjectURL(this.blobFile)
+        return fileUrl
+    }
+
     async getContent() {
         const content = await getFileInfoById(this.fileId);
         return content;
