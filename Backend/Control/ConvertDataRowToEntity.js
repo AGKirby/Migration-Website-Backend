@@ -1,7 +1,7 @@
 import {Publication, Program, Institution} from '../Entity/Entities.js'
 
 /* Public Utility Function called by DatabaseGateway */
-export function rowsToPublicationList(rows) {
+export function rowsToPublicationList(rows, type = null) {
     const publicationList = []
     const tagsList = new ItemList()
     for(let i = 0; i < rows.length; i++) {
@@ -12,7 +12,7 @@ export function rowsToPublicationList(rows) {
         const lastRow = i+1 >= rows.length
         const nextIdIsNew = !lastRow && rows[i].ID !== rows[i+1].ID
         if(lastRow || nextIdIsNew) {
-            const aPublication = rowToPublication(rows[i], tagsList.getList())
+            const aPublication = rowToPublication(rows[i], tagsList.getList(), type)
             publicationList.push(aPublication)
             // reset tags lists for next program
             tagsList.resetItemsList()
@@ -22,13 +22,14 @@ export function rowsToPublicationList(rows) {
 }
 
 /* Private Helper Function */
-function rowToPublication(row, tags = []) {
+function rowToPublication(row, tags = [], type) {
     return new Publication(
         row.ID,
         row.Title,
         row.Date,
         row.Author,
         row.Box_File_ID,
+        row.Publication_Type || type,
         tags,
         row.Publication_File
     )

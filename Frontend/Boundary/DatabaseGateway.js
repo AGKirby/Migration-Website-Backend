@@ -7,6 +7,16 @@ import { dataToPublicationList, dataToPublication,
 const NO_RESULTS = null
 
 
+export function getSearchableItems(callback) {
+    Axios.get("http://localhost:3002/api/getSearchableItems").then((res)=>{
+        if(res.status !== 200 || res.data === NO_RESULTS) {
+            callback(NO_RESULTS)
+        }
+        const searchableItems = dataToPublicationList(res.data)
+        callback(searchableItems)
+    });
+}
+
 export function getAllPublications(callback) {
     Axios.get("http://localhost:3002/api/getAllPublications").then((res)=>{
         if(res.status !== 200 || res.data === NO_RESULTS) {
