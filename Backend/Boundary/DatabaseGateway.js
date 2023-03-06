@@ -3,6 +3,7 @@ import {query, closeDatabaseConnection} from '../Control/DatabaseUtility.js'
 import {rowsToPublicationList, rowsToProgramList, rowsToInstitutionList} from '../Control/ConvertDataRowToEntity.js'
 
 const SUCCESSFUL_QUERY = null
+const NO_RESULTS = null
 
 export function getAllPublications(callback) {
     getAllPublicationsByType("Publication", callback)
@@ -29,13 +30,13 @@ function getAllPublicationsByType(type, callback) {
     const inputValues = [type]
     try {
         query(sql, inputValues, (rows) => {
-            if(rows.length === 0) callback(null)
+            if(rows.length === 0) callback(NO_RESULTS)
             const publicationList = rowsToPublicationList(rows)
             callback(SUCCESSFUL_QUERY, publicationList)
         })
     } catch(error) {
         console.log("An error occurred!")
-        callback(error, [])
+        callback(error, NO_RESULTS)
     }
 }
 
@@ -48,13 +49,13 @@ export function getPublicationById(id, callback) {
     const inputValues = [id]
     try {
         query(sql, inputValues, (rows) => {
-            if(rows.length === 0) return callback(null)
+            if(rows.length === 0) return callback(NO_RESULTS)
             const aPublication = rowsToPublicationList(rows)[0]  //only one result since queried by primary key
             callback(SUCCESSFUL_QUERY, aPublication)
         })
     } catch(error) {
         console.log("An error occurred!")
-        callback(error, [])
+        callback(error, NO_RESULTS)
     }
 }
 
@@ -69,13 +70,13 @@ export function getAllPrograms(callback) {
     const inputValues = []
     try {
         query(sql, inputValues, (rows) => {
-            if(rows.length === 0) callback(null)
+            if(rows.length === 0) callback(NO_RESULTS)
             const programList = rowsToProgramList(rows)
             callback(SUCCESSFUL_QUERY, programList)
         })
     } catch(error) {
         console.log("An error occurred!")
-        callback(error, [])
+        callback(error, NO_RESULTS)
     }
 }
 
@@ -90,13 +91,13 @@ export function getProgramById(id, callback) {
     const inputValues = [id]
     try {
         query(sql, inputValues, (rows) => {
-            if(rows.length === 0) return callback(null)
+            if(rows.length === 0) return callback(NO_RESULTS)
             const aProgram = rowsToProgramList(rows)[0]  //only one result since queried by primary key
             callback(SUCCESSFUL_QUERY, aProgram)
         })
     } catch(error) {
         console.log("An error occurred!")
-        callback(error, [])
+        callback(error, NO_RESULTS)
     }
 }
 
@@ -107,13 +108,13 @@ export function getAllInstitutions(callback) {
     const inputValues = []
     try {
         query(sql, inputValues, (rows) => {
-            if(rows.length === 0) callback(null)
+            if(rows.length === 0) callback(NO_RESULTS)
             const institutionList = rowsToInstitutionList(rows)
             callback(SUCCESSFUL_QUERY, institutionList)
         })
     } catch(error) {
         console.log("An error occurred!")
-        callback(error, [])
+        callback(error, NO_RESULTS)
     }
 }
 
@@ -124,13 +125,13 @@ export function getInstitutionById(id, callback) {
     const inputValues = [id]
     try {
         query(sql, inputValues, (rows) => {
-            if(rows.length === 0) return callback(null)
+            if(rows.length === 0) return callback(NO_RESULTS)
             const anInstitution = rowsToInstitutionList(rows)[0]  //only one result since queried by primary key
             callback(SUCCESSFUL_QUERY, anInstitution)
         })
     } catch(error) {
         console.log("An error occurred!")
-        callback(error, [])
+        callback(error, NO_RESULTS)
     }
 }
 
