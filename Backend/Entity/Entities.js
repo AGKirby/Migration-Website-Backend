@@ -59,3 +59,11 @@ export class Institution {
         this.institutionURL = institutionURL            // string
     }
 }
+
+export class RecentNewsandEvents {
+    constructor(id, name, url) {
+        this.id = id                                                    // integer, unique identifer
+        this.name = name                                                // string
+        this.url = url            // string
+    }
+}

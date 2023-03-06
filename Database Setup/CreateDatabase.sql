@@ -72,3 +72,11 @@ CREATE TABLE program_has
   FOREIGN KEY (Tag) REFERENCES Tag(Tag),
   FOREIGN KEY (Program_ID) REFERENCES Program(ID)
 );
+
+CREATE TABLE recent_news_and_events
+(
+  ID INT NOT NULL,
+  Name VARCHAR(32) NOT NULL,
+  URL VARCHAR(64) NOT NULL,
+  PRIMARY KEY (ID)
+);
