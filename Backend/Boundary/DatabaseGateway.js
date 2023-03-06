@@ -5,6 +5,24 @@ import {rowsToPublicationList, rowsToProgramList, rowsToInstitutionList} from '.
 const SUCCESSFUL_QUERY = null
 const NO_RESULTS = null
 
+export function getSearchableItems(callback) {
+    const sql = `SELECT p.ID, p.Title, p.Author, p.Date, p.Box_File_ID, p.Publication_Type, ph.Tag
+                 FROM publication p 
+                 LEFT JOIN publication_has ph ON p.ID = ph.Publication_ID
+                 ORDER BY p.ID, ph.Tag;`
+    const inputValues = []
+    try {
+        query(sql, inputValues, (rows) => {
+            if(rows.length === 0) callback(NO_RESULTS)
+            const publicationList = rowsToPublicationList(rows)
+            callback(SUCCESSFUL_QUERY, publicationList)
+        })
+    } catch(error) {
+        console.log("An error occurred!")
+        callback(error, NO_RESULTS)
+    }
+}
+
 export function getAllPublications(callback) {
     getAllPublicationsByType("Publication", callback)
 }
@@ -31,7 +49,7 @@ function getAllPublicationsByType(type, callback) {
     try {
         query(sql, inputValues, (rows) => {
             if(rows.length === 0) callback(NO_RESULTS)
-            const publicationList = rowsToPublicationList(rows)
+            const publicationList = rowsToPublicationList(rows, type)
             callback(SUCCESSFUL_QUERY, publicationList)
         })
     } catch(error) {

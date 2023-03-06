@@ -3,12 +3,13 @@ import { Readable } from 'stream';
 import { getFileInfoById } from '../Control/FetchBoxData.js'
 
 export class Publication {
-    constructor(id, title, creationDate, author, fileId, tags, blob) {
+    constructor(id, title, creationDate, author, fileId, type, tags, blob) {
         this.id = id                                    // integer, unique identifer
         this.title = title                              // string
         this.creationDate = creationDate                // date
         this.author = author                            // string
         this.fileId = fileId                            // int
+        this.type = type                                // string
         this.tags = tags                                // list of strings
         this.blobFile = blob                            // Buffer
     }

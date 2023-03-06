@@ -7,8 +7,18 @@ const  PORT = 3002;
 app.use(cors());
 app.use(express.json())
 
-import { getAllPublications, getAllArtworks, getAllVideos, getAllExcerpts, getPublicationById, 
+import { getSearchableItems, getAllPublications, getAllArtworks, getAllVideos, getAllExcerpts, getPublicationById, 
          getAllPrograms, getProgramById, getAllInstitutions } from './DatabaseGateway.js'
+
+// Route to get all publications
+app.get("/api/getSearchableItems", (req, res) => {
+    getSearchableItems((err, result) => {
+         if(err) {
+             console.log(err)
+         } 
+         res.send(result)
+     });   
+ });
 
 // Route to get all publications
 app.get("/api/getAllPublications", (req, res) => {

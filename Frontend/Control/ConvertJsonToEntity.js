@@ -17,6 +17,7 @@ export function dataToPublication(data) {
         data.date,
         data.author,
         data.fileId,
+        data.type,
         data.tags,
         data.blobFile
     )
