@@ -113,6 +113,28 @@ app.get("/api/getInstitutionById/:id", (req, res) => {
     });   
 });
 
+// Route to get all programs
+app.get("/api/getAllNewsAndEvents", (req, res) => {
+    getAllNewsAndEvents((err, result) => {
+         if(err) {
+             console.log(err)
+         } 
+         res.send(result)
+     });   
+});
+
+// Route to get a program by id
+app.get("/api/getNewsAndEventById/:id", (req, res) => {
+   const id = req.params.id
+   getNewsAndEventById(id, (err, result) => {
+        if(err) {
+            console.log(err)
+        } 
+        res.send(result)
+    });   
+});
+
+
 app.listen(PORT, ()=>{
     console.log(`Server is running on ${PORT}`)
 })

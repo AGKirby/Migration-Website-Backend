@@ -2,7 +2,8 @@ import Axios from 'axios'
 
 import { dataToPublicationList, dataToPublication, 
          dataToProgramList, dataToProgram, 
-         dataToInstitutionList, dataToInstitution } from '../Control/ConvertJsonToEntity.js'
+         dataToInstitutionList, dataToInstitution,
+         dataToNewsAndEventsList, dataToNewsAndEvents } from '../Control/ConvertJsonToEntity.js'
 
 const NO_RESULTS = null
 const SUCCESS_STATUS = 200
@@ -109,5 +110,26 @@ export function getInstitutionById(id, callback) {
         }
         const anInstitution = dataToInstitution(res.data)
         callback(anInstitution)
+    });
+}
+
+
+export function getAllNewsAndEvents(callback) {
+    Axios.get(`${BASE_URL}/getAllNewsAndEvents`).then((res)=>{
+        if(res.status !== SUCCESS_STATUS || res.data === NO_RESULTS) {
+            callback(NO_RESULTS)
+        }
+        const newsAndEventsList = dataToNewsAndEventsList(res.data)
+        callback(newsAndEventsList)
+    });
+}
+
+export function getInstitutionById(id, callback) {
+    Axios.get(`${BASE_URL}/getInstitutionById/${id}`).then((res)=>{
+        if(res.status !== SUCCESS_STATUS || res.data === NO_RESULTS) {
+            callback(NO_RESULTS)
+        }
+        const aNewsAndEvent = dataToNewsAndEvents(res.data)
+        callback(aNewsAndEvent)
     });
 }

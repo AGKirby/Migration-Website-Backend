@@ -1,4 +1,4 @@
-import {Publication, Program, Institution} from '../Entity/Entities.js'
+import {Publication, Program, Institution, RecentNewsandEvents} from '../Entity/Entities.js'
 
 /* Public Utility Function called by DatabaseGateway */
 export function rowsToPublicationList(rows, type = null) {
@@ -93,6 +93,26 @@ function rowToInstitution(row) {
         row.ID,
         row.Name,
         row.Affiliation,
+        row.URL
+    )
+}
+
+
+/* Public Utility Function called by DatabaseGateway */
+export function rowsToNewsAndEventsList(rows) {
+    const newsAndEventsList = []
+    for(let i = 0; i < rows.length; i++) {
+        const aNewsAndEvent = rowToNewsAndEvents(rows[i])
+        newsAndEventsList.push(aNewsAndEvent)
+    }
+    return newsAndEventsList
+}
+
+/* Private Helper Function */
+function rowToNewsAndEvents(row) {
+    return new RecentNewsandEvents(
+        row.ID,
+        row.Name,
         row.URL
     )
 }
