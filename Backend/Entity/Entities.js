@@ -45,17 +45,18 @@ export class Program {
 }
 
 export class Institution {
-    constructor(id, name, institutionURL) {
+    constructor(id, name, affiliation, institutionURL) {
         this.id = id                                    // integer, unique identifer
         this.name = name                                // string
+        this.affiliation = affiliation                  // string
         this.institutionURL = institutionURL            // string
     }
 }
 
 export class RecentNewsandEvents {
     constructor(id, name, url) {
-        this.id = id                                                    // integer, unique identifer
-        this.name = name                                                // string
+        this.id = id              // integer, unique identifer
+        this.name = name          // string
         this.url = url            // string
     }
 }

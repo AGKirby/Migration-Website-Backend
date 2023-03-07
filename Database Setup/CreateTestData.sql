@@ -42,10 +42,10 @@ INSERT INTO program (ID, Name, Type, Start_Date, End_Date, URL)
 
 
 -- Institution initial values
-INSERT INTO institution (ID, Name, URL)
-    VALUES (1, "Oregon State University", "oregonstate.edu");
-INSERT INTO institution (ID, Name, URL)
-    VALUES (2, "OSU Cascades", "osucascades.edu");
+INSERT INTO institution (ID, Name, Affiliation, URL)
+    VALUES (1, "Oregon State University", "Public", "oregonstate.edu");
+INSERT INTO institution (ID, Name, Affiliation, URL)
+    VALUES (2, "OSU Cascades", "Public", "osucascades.edu");
 
 
 -- Institution_Hosts initial values

@@ -65,6 +65,7 @@ export function dataToInstitution(data) {
     return new Institution(
         data.id,
         data.name,
+        data.affiliation,
         data.institutionURL
     )
 }

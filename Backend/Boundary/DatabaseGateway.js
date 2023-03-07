@@ -121,7 +121,7 @@ export function getProgramById(id, callback) {
 
 
 export function getAllInstitutions(callback) {
-    const sql = `SELECT i.ID, i.Name, i.URL 
+    const sql = `SELECT i.ID, i.Name, i.Affiliation, i.URL 
                  FROM institution i`
     const inputValues = []
     try {
@@ -137,7 +137,7 @@ export function getAllInstitutions(callback) {
 }
 
 export function getInstitutionById(id, callback) {
-    const sql = `SELECT i.ID, i.Name, i.URL 
+    const sql = `SELECT i.ID, i.Name, i.Affiliation, i.URL 
                  FROM institution i 
                  WHERE i.ID = ?`
     const inputValues = [id]

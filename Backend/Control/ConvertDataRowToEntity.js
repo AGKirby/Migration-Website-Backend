@@ -92,6 +92,7 @@ function rowToInstitution(row) {
     return new Institution(
         row.ID,
         row.Name,
+        row.Affiliation,
         row.URL
     )
 }
