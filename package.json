@@ -3,6 +3,7 @@
   "dependencies": {
     "box-node-sdk": "^2.8.1",
     "boxsdk": "^0.2.11",
+    "buffer": "^6.0.3",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "mysql": "^2.18.1"

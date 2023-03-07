@@ -13,6 +13,7 @@ CREATE TABLE Publication
   Box_File_ID VARCHAR(32) NOT NULL,
   Publication_Type VARCHAR(32) NOT NULL,
   Publication_File BLOB,
+  Publication_File_Type VARCHAR(45),
   PRIMARY KEY (ID),
   FOREIGN KEY (Publication_Type) REFERENCES Publication_Type(Publication_Type)
 );

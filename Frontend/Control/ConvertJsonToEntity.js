@@ -19,7 +19,8 @@ export function dataToPublication(data) {
         data.fileId,
         data.type,
         data.tags,
-        data.blobFile
+        data.blobBuffer,
+        data.blobType
     )
 }
 

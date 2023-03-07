@@ -40,7 +40,7 @@ export function getAllExcerpts(callback) {
 }
 
 function getAllPublicationsByType(type, callback) {
-    const sql = `SELECT p.ID, p.Title, p.Author, p.Date, p.Box_File_ID, ph.Tag, p.Publication_File 
+    const sql = `SELECT p.ID, p.Title, p.Author, p.Date, p.Box_File_ID, ph.Tag, p.Publication_File, p.Publication_File_Type 
                  FROM publication p 
                  LEFT JOIN publication_has ph ON p.ID = ph.Publication_ID
                  WHERE p.Publication_Type = ?

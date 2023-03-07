@@ -3,8 +3,10 @@ import bufferToDataUrl from "buffer-to-data-url"
 
 // import { getFileInfoById } from '../Control/FetchBoxData.js'
 
+import { Buffer as Buffer } from 'buffer'
+
 export class Publication {
-    constructor(id, title, creationDate, author, fileId, type, tags, blob) {
+    constructor(id, title, creationDate, author, fileId, type, tags, blob, blobType) {
         this.id = id                                    // integer, unique identifer
         this.title = title                              // string
         this.creationDate = creationDate                // date
@@ -12,30 +14,15 @@ export class Publication {
         this.fileId = fileId                            // int
         this.type = type                                // string
         this.tags = tags                                // list of strings
-        this.blobFile = blob                            // Buffer
-    }
-
-    async readFileData(callback) {
-        const stream = this.blobFile.stream();
-        let content = "";
-        for await (const chunk of stream) {
-            content += chunk;
-        }
-        callback(content);
+        this.blobBuffer = blob                          // Buffer
+        this.blobType = blobType                        // string
     }
 
     getFileDataUrl() {
-        // const urlCreator = window.URL || window.webkitURL
-        // const fileUrl = urlCreator.createObjectURL(this.blobFile)
-        // return fileUrl
-        const fileUrl = bufferToDataUrl("image/jpg", this.blobFile)
+        const base64Encoding = new Buffer.from(this.blobBuffer).toString('base64')
+        const fileUrl = `data:${this.blobType};base64,${base64Encoding}` 
         return fileUrl
     }
-
-    // async getContent() {
-    //     const content = await getFileInfoById(this.fileId);
-    //     return content;
-    // }
 }
 
 export class Program {
