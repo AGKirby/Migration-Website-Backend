@@ -1,6 +1,6 @@
 import {Publication, Program, Institution} from '../Entity/Entities.js'
 import {query, closeDatabaseConnection} from '../Control/DatabaseUtility.js'
-import {rowsToPublicationList, rowsToProgramList, rowsToInstitutionList} from '../Control/ConvertDataRowToEntity.js'
+import {rowsToPublicationList, rowsToProgramList, rowsToInstitutionList, rowsToNewsAndEventsList} from '../Control/ConvertDataRowToEntity.js'
 
 const SUCCESSFUL_QUERY = null
 const NO_RESULTS = null
@@ -146,6 +146,40 @@ export function getInstitutionById(id, callback) {
             if(rows.length === 0) return callback(NO_RESULTS)
             const anInstitution = rowsToInstitutionList(rows)[0]  //only one result since queried by primary key
             callback(SUCCESSFUL_QUERY, anInstitution)
+        })
+    } catch(error) {
+        console.log("An error occurred!")
+        callback(error, NO_RESULTS)
+    }
+}
+
+
+export function getAllNewsAndEvents(callback) {
+    const sql = `SELECT n.ID, n.Name, n.URL 
+                 FROM recent_news_and_events n`
+    const inputValues = []
+    try {
+        query(sql, inputValues, (rows) => {
+            if(rows.length === 0) callback(NO_RESULTS)
+            const newsAndEventsList = rowsToNewsAndEventsList(rows)
+            callback(SUCCESSFUL_QUERY, newsAndEventsList)
+        })
+    } catch(error) {
+        console.log("An error occurred!")
+        callback(error, NO_RESULTS)
+    }
+}
+
+export function getNewsAndEventById(id, callback) {
+    const sql = `SELECT n.ID, n.Name, n.URL 
+                 FROM recent_news_and_events n 
+                 WHERE n.ID = ?`
+    const inputValues = [id]
+    try {
+        query(sql, inputValues, (rows) => {
+            if(rows.length === 0) return callback(NO_RESULTS)
+            const aNewsAndEvent = rowsToNewsAndEventsList(rows)[0]  //only one result since queried by primary key
+            callback(SUCCESSFUL_QUERY, aNewsAndEvent)
         })
     } catch(error) {
         console.log("An error occurred!")
