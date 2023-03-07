@@ -2,8 +2,12 @@ import { Readable } from 'stream';
 
 import { getFileInfoById } from '../Control/FetchBoxData.js'
 
+// const Buffer = require('buffer').Buffer
+import { Buffer as Buffer } from 'buffer'
+// const Buffer = Buffer.buffer
+
 export class Publication {
-    constructor(id, title, creationDate, author, fileId, type, tags, blob) {
+    constructor(id, title, creationDate, author, fileId, type, tags, blob, blobType) {
         this.id = id                                    // integer, unique identifer
         this.title = title                              // string
         this.creationDate = creationDate                // date
@@ -11,27 +15,14 @@ export class Publication {
         this.fileId = fileId                            // int
         this.type = type                                // string
         this.tags = tags                                // list of strings
-        this.blobFile = blob                            // Buffer
+        this.blobBuffer = blob                          // Buffer
+        this.blobType = blobType                        // string
     }
 
-    async readFileData() {
-        const stream = Readable.from(this.blobFile);
-        let content = "";
-        for await (const chunk of stream) {
-            content += chunk;
-        }
-        return content;
-    }
-
-    async getFileDataUrl() {
-        const urlCreator = window.URL || window.webkitURL
-        const fileUrl = urlCreator.createObjectURL(this.blobFile)
+    getFileDataUrl() {
+        const base64Encoding = new Buffer.from(this.blobBuffer).toString('base64')
+        const fileUrl = `data:${this.blobType};base64,${base64Encoding}` 
         return fileUrl
-    }
-
-    async getContent() {
-        const content = await getFileInfoById(this.fileId);
-        return content;
     }
 }
 

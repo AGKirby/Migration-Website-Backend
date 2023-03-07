@@ -31,7 +31,8 @@ function rowToPublication(row, tags = [], type) {
         row.Box_File_ID,
         row.Publication_Type || type,
         tags,
-        row.Publication_File
+        row.Publication_File,
+        row.Publication_File_Type
     )
 }
 
