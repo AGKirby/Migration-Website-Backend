@@ -1,6 +1,14 @@
 import {Publication, Program, Institution, RecentNewsandEvents} from '../Entity/Entities.js'
 
-/* Public Utility Function called by DatabaseGateway */
+/**
+ * dataToPublicationList
+ * Utility function for converting json array data returned from the API 
+ * into a list of Publication entity objects.  
+ * 
+ * @param {JSON}                data                List of data returned by the API. 
+ * 
+ * @return {list<Publication>}  publicationList     List of Publication entity objects converted. 
+ */
 export function dataToPublicationList(data) {
     const publicationList = []
     for(let i = 0; i < data.length; i++) {
@@ -10,6 +18,15 @@ export function dataToPublicationList(data) {
     return publicationList
 }
 
+/**
+ * dataToPublication
+ * Utility function for converting json object data returned from the API 
+ * into a Publication entity object.  
+ * 
+ * @param {JSON}                data                Data returned by the API. 
+ * 
+ * @return {Publication}        aPublication        Publication entity object converted. 
+ */
 export function dataToPublication(data) {
     return new Publication(
         data.id,
@@ -25,7 +42,15 @@ export function dataToPublication(data) {
 }
 
 
-/* Public Utility Function called by DatabaseGateway */
+/**
+ * dataToProgramList
+ * Utility function for converting json array data returned from the API 
+ * into a list of Program entity objects.  
+ * 
+ * @param {JSON}                data                List of data returned by the API. 
+ * 
+ * @return {list<Program>}      programList         List of Program entity objects converted. 
+ */
 export function dataToProgramList(data) {
     const programList = []
     for(let i = 0; i < data.length; i++) {
@@ -35,7 +60,15 @@ export function dataToProgramList(data) {
     return programList
 }
 
-/* Public Utility Function called by DatabaseGateway */
+/**
+ * dataToProgram
+ * Utility function for converting json object data returned from the API 
+ * into a Program entity object.  
+ * 
+ * @param {JSON}                data                Data returned by the API. 
+ * 
+ * @return {Program}            aProgram            Program entity object converted. 
+ */
 export function dataToProgram(data) {
     return new Program(
         data.id,
@@ -50,7 +83,15 @@ export function dataToProgram(data) {
 }
 
 
-/* Public Utility Function called by DatabaseGateway */
+/**
+ * dataToInstitutionList
+ * Utility function for converting json array data returned from the API 
+ * into a list of Institution entity object.  
+ * 
+ * @param {JSON}                data                List of data returned by the API. 
+ * 
+ * @return {list<Institution>} institutionList         List of Institution entity objects converted. 
+ */
 export function dataToInstitutionList(data) {
     const institutionList = []
     for(let i = 0; i < data.length; i++) {
@@ -60,7 +101,15 @@ export function dataToInstitutionList(data) {
     return institutionList
 }
 
-/* Public Utility Function called by DatabaseGateway */
+/**
+ * dataToInstitution
+ * Utility function for converting json object data returned from the API 
+ * into an Institution entity objects.  
+ * 
+ * @param {JSON}                data                Data returned by the API. 
+ * 
+ * @return {Institution}        anInstitution       Institution entity object converted. 
+ */
 export function dataToInstitution(data) {
     return new Institution(
         data.id,
@@ -71,7 +120,15 @@ export function dataToInstitution(data) {
 }
 
 
-/* Public Utility Function called by DatabaseGateway */
+/**
+ * dataToNewsAndEventsList
+ * Utility function for converting json array data returned from the API 
+ * into a list of NewsAndEvent entity objects.  
+ * 
+ * @param {JSON}                data                List of data returned by the API. 
+ * 
+ * @return {list<NewsAndEvent>} newsAndEventsList   List of NewsAndEvent entity objects converted. 
+ */
 export function dataToNewsAndEventsList(data) {
     const newsAndEventsList = []
     for(let i = 0; i < data.length; i++) {
@@ -81,8 +138,16 @@ export function dataToNewsAndEventsList(data) {
     return newsAndEventsList
 }
 
-/* Private Helper Function */
-function dataToNewsAndEvents(data) {
+/**
+ * dataToNewsAndEvents
+ * Utility function for converting json object data returned from the API 
+ * into a NewsandEvents entity object.  
+ * 
+ * @param {JSON}                data                Data returned by the API. 
+ * 
+ * @return {NewsandEvents}      aNewsandEvents      NewsandEvents entity object converted. 
+ */
+export function dataToNewsAndEvents(data) {
     return new RecentNewsandEvents(
         data.ID,
         data.Name,
