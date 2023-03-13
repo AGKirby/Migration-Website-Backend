@@ -4,7 +4,21 @@ import {rowsToPublicationList, rowsToProgramList, rowsToInstitutionList, rowsToN
 
 const SUCCESSFUL_QUERY = null
 const NO_RESULTS = null
+const NO_ROWS_SELECTED = 0
+const NO_ROWS_MESSAGE = "No rows selected for query"
 
+/**
+ * getSearchableItems
+ * Queries the database for all entries searchable by the search bar 
+ * by selecting all tuples from the Publication table in the database, 
+ * and returns all entities in a list of Publication entity objects
+ * by calling the callback funtion passed as an argument. 
+ * 
+ * @param {function}            callback       Calls back with results from database query.
+ * 
+ * @return {string}             error          Error message, null if query was successful
+ * @return {list<Publication>}  results        Results of the query as a list of Publication objects
+ */
 export function getSearchableItems(callback) {
     const sql = `SELECT p.ID, p.Title, p.Author, p.Date, p.Box_File_ID, p.Publication_Type, ph.Tag
                  FROM publication p 
@@ -13,7 +27,8 @@ export function getSearchableItems(callback) {
     const inputValues = []
     try {
         query(sql, inputValues, (rows) => {
-            if(rows.length === 0) callback(NO_RESULTS)
+            if(rows.length === NO_ROWS_SELECTED) 
+                return callback(NO_ROWS_MESSAGE, NO_RESULTS)
             const publicationList = rowsToPublicationList(rows)
             callback(SUCCESSFUL_QUERY, publicationList)
         })
@@ -23,18 +38,66 @@ export function getSearchableItems(callback) {
     }
 }
 
+/**
+ * getAllPublications
+ * Queries the database for all entries from the Publication table
+ * with type "Publication", 
+ * and returns all entities in a list of Publication entity objects
+ * by calling the callback funtion passed as an argument. 
+ * 
+ * @param {function}            callback       Calls back with results from database query.
+ * 
+ * @return {string}             error          Error message, null if query was successful
+ * @return {list<Publication>}  results        Results of the query as a list of Publication objects
+ */
 export function getAllPublications(callback) {
     getAllPublicationsByType("Publication", callback)
 }
 
+/**
+ * getAllArtworks
+ * Queries the database for all entries from the Publication table
+ * with type "Artwork", 
+ * and returns all entities in a list of Publication entity objects
+ * by calling the callback funtion passed as an argument. 
+ * 
+ * @param {function}            callback       Calls back with results from database query.
+ * 
+ * @return {string}             error          Error message, null if query was successful
+ * @return {list<Publication>}  results        Results of the query as a list of Publication objects
+ */
 export function getAllArtworks(callback) {
     getAllPublicationsByType("Artwork", callback)
 }
 
+/**
+ * getAllVideos
+ * Queries the database for all entries from the Publication table
+ * with type "Videos", 
+ * and returns all entities in a list of Publication entity objects
+ * by calling the callback funtion passed as an argument. 
+ * 
+ * @param {function}            callback       Calls back with results from database query.
+ * 
+ * @return {string}             error          Error message, null if query was successful
+ * @return {list<Publication>}  results        Results of the query as a list of Publication objects
+ */
 export function getAllVideos(callback) {
     getAllPublicationsByType("Video", callback)
 }
 
+/**
+ * getAllExcerpts
+ * Queries the database for all entries from the Publication table
+ * with type "Excerpts", 
+ * and returns all entities in a list of Publication entity objects
+ * by calling the callback funtion passed as an argument. 
+ * 
+ * @param {function}            callback       Calls back with results from database query.
+ * 
+ * @return {string}             error          Error message, null if query was successful
+ * @return {list<Publication>}  results        Results of the query as a list of Publication objects
+ */
 export function getAllExcerpts(callback) {
     getAllPublicationsByType("Excerpt", callback)
 }
@@ -48,7 +111,8 @@ function getAllPublicationsByType(type, callback) {
     const inputValues = [type]
     try {
         query(sql, inputValues, (rows) => {
-            if(rows.length === 0) callback(NO_RESULTS)
+            if(rows.length === NO_ROWS_SELECTED) 
+                return callback(NO_ROWS_MESSAGE, NO_RESULTS)
             const publicationList = rowsToPublicationList(rows, type)
             callback(SUCCESSFUL_QUERY, publicationList)
         })
@@ -58,6 +122,19 @@ function getAllPublicationsByType(type, callback) {
     }
 }
 
+/**
+ * getPublicationById
+ * Queries the database for an entries from the Publication table
+ * with a specified id
+ * and returns the entry as a Publication entity object
+ * by calling the callback funtion passed as an argument. 
+ * 
+ * @param {int}                 id             Database ID of the tuple to return.
+ * @param {function}            callback       Calls back with results from database query.
+ * 
+ * @return {string}             error          Error message, null if query was successful
+ * @return {Publication}        result         Result of the query as a Publication object
+ */
 export function getPublicationById(id, callback) {
     const sql = `SELECT p.ID, p.Title, p.Author, p.Date, p.Box_File_ID, ph.Tag, p.Publication_File 
                  FROM publication p 
@@ -67,7 +144,8 @@ export function getPublicationById(id, callback) {
     const inputValues = [id]
     try {
         query(sql, inputValues, (rows) => {
-            if(rows.length === 0) return callback(NO_RESULTS)
+            if(rows.length === NO_ROWS_SELECTED) 
+                return callback(NO_ROWS_MESSAGE, NO_RESULTS)
             const aPublication = rowsToPublicationList(rows)[0]  //only one result since queried by primary key
             callback(SUCCESSFUL_QUERY, aPublication)
         })
@@ -77,7 +155,17 @@ export function getPublicationById(id, callback) {
     }
 }
 
-
+/**
+ * getAllPrograms
+ * Queries the database for all entries from the Programs table
+ * and returns all entities in a list of Program entity objects
+ * by calling the callback funtion passed as an argument. 
+ * 
+ * @param {function}            callback       Calls back with results from database query.
+ * 
+ * @return {string}             error          Error message, null if query was successful
+ * @return {list<Program>}      results        Results of the query as a list of Program objects
+ */
 export function getAllPrograms(callback) {
     const sql = `SELECT p.ID, p.Name AS Program_Name, p.Type, p.Start_Date, p.End_Date, p.URL, i.Name AS Institution_Name, ph.Tag 
                  FROM Program p 
@@ -88,7 +176,8 @@ export function getAllPrograms(callback) {
     const inputValues = []
     try {
         query(sql, inputValues, (rows) => {
-            if(rows.length === 0) callback(NO_RESULTS)
+            if(rows.length === NO_ROWS_SELECTED) 
+                return callback(NO_ROWS_MESSAGE, NO_RESULTS)
             const programList = rowsToProgramList(rows)
             callback(SUCCESSFUL_QUERY, programList)
         })
@@ -98,6 +187,19 @@ export function getAllPrograms(callback) {
     }
 }
 
+/**
+ * getProgramById
+ * Queries the database for an entries from the Program table
+ * with a specified id
+ * and returns the entry as a Program entity object
+ * by calling the callback funtion passed as an argument. 
+ * 
+ * @param {int}                 id             Database ID of the tuple to return.
+ * @param {function}            callback       Calls back with results from database query.
+ * 
+ * @return {string}             error          Error message, null if query was successful
+ * @return {Program}            result         Result of the query as a Program object
+ */
 export function getProgramById(id, callback) {
     const sql = `SELECT p.ID, p.Name AS Program_Name, p.Type, p.Start_Date, p.End_Date, p.URL, i.Name AS Institution_Name, ph.Tag 
                  FROM Program p 
@@ -109,7 +211,8 @@ export function getProgramById(id, callback) {
     const inputValues = [id]
     try {
         query(sql, inputValues, (rows) => {
-            if(rows.length === 0) return callback(NO_RESULTS)
+            if(rows.length === NO_ROWS_SELECTED) 
+                return callback(NO_ROWS_MESSAGE, NO_RESULTS)
             const aProgram = rowsToProgramList(rows)[0]  //only one result since queried by primary key
             callback(SUCCESSFUL_QUERY, aProgram)
         })
@@ -120,13 +223,25 @@ export function getProgramById(id, callback) {
 }
 
 
+/**
+ * getAllInstitutions
+ * Queries the database for all entries from the Institutions table
+ * and returns all entities in a list of Institution entity objects
+ * by calling the callback funtion passed as an argument. 
+ * 
+ * @param {function}            callback       Calls back with results from database query.
+ * 
+ * @return {string}             error          Error message, null if query was successful
+ * @return {list<Institution>}  results        Results of the query as a list of Institution objects
+ */
 export function getAllInstitutions(callback) {
     const sql = `SELECT i.ID, i.Name, i.Affiliation, i.URL 
                  FROM institution i`
     const inputValues = []
     try {
         query(sql, inputValues, (rows) => {
-            if(rows.length === 0) callback(NO_RESULTS)
+            if(rows.length === NO_ROWS_SELECTED) 
+                return callback(NO_ROWS_MESSAGE, NO_RESULTS)
             const institutionList = rowsToInstitutionList(rows)
             callback(SUCCESSFUL_QUERY, institutionList)
         })
@@ -136,6 +251,19 @@ export function getAllInstitutions(callback) {
     }
 }
 
+/**
+ * getInstitutionById
+ * Queries the database for an entries from the Institution table
+ * with a specified id
+ * and returns the entry as a Institution entity object
+ * by calling the callback funtion passed as an argument. 
+ * 
+ * @param {int}                 id             Database ID of the tuple to return.
+ * @param {function}            callback       Calls back with results from database query.
+ * 
+ * @return {string}             error          Error message, null if query was successful
+ * @return {Institution}        result         Result of the query as a Institution object
+ */
 export function getInstitutionById(id, callback) {
     const sql = `SELECT i.ID, i.Name, i.Affiliation, i.URL 
                  FROM institution i 
@@ -143,7 +271,8 @@ export function getInstitutionById(id, callback) {
     const inputValues = [id]
     try {
         query(sql, inputValues, (rows) => {
-            if(rows.length === 0) return callback(NO_RESULTS)
+            if(rows.length === NO_ROWS_SELECTED) 
+                return callback(NO_ROWS_MESSAGE, NO_RESULTS)
             const anInstitution = rowsToInstitutionList(rows)[0]  //only one result since queried by primary key
             callback(SUCCESSFUL_QUERY, anInstitution)
         })
@@ -154,13 +283,25 @@ export function getInstitutionById(id, callback) {
 }
 
 
+/**
+ * getAllNewsAndEvents
+ * Queries the database for all entries from the NewsAndEvents table
+ * and returns all entities in a list of NewsAndEvent entity objects
+ * by calling the callback funtion passed as an argument. 
+ * 
+ * @param {function}            callback       Calls back with results from database query.
+ * 
+ * @return {string}             error          Error message, null if query was successful
+ * @return {list<NewsAndEvent>} results        Results of the query as a list of NewsAndEvent objects
+ */
 export function getAllNewsAndEvents(callback) {
     const sql = `SELECT n.ID, n.Name, n.URL 
                  FROM recent_news_and_events n`
     const inputValues = []
     try {
         query(sql, inputValues, (rows) => {
-            if(rows.length === 0) callback(NO_RESULTS)
+            if(rows.length === NO_ROWS_SELECTED) 
+                return callback(NO_ROWS_MESSAGE, NO_RESULTS)
             const newsAndEventsList = rowsToNewsAndEventsList(rows)
             callback(SUCCESSFUL_QUERY, newsAndEventsList)
         })
@@ -170,6 +311,19 @@ export function getAllNewsAndEvents(callback) {
     }
 }
 
+/**
+ * getNewsAndEventById
+ * Queries the database for an entries from the NewsAndEvent table
+ * with a specified id
+ * and returns the entry as a NewsAndEvent entity object
+ * by calling the callback funtion passed as an argument. 
+ * 
+ * @param {int}                 id             Database ID of the tuple to return.
+ * @param {function}            callback       Calls back with results from database query.
+ * 
+ * @return {string}             error          Error message, null if query was successful
+ * @return {NewsAndEvent}       result         Result of the query as a NewsAndEvent object
+ */
 export function getNewsAndEventById(id, callback) {
     const sql = `SELECT n.ID, n.Name, n.URL 
                  FROM recent_news_and_events n 
@@ -177,7 +331,8 @@ export function getNewsAndEventById(id, callback) {
     const inputValues = [id]
     try {
         query(sql, inputValues, (rows) => {
-            if(rows.length === 0) return callback(NO_RESULTS)
+            if(rows.length === NO_ROWS_SELECTED) 
+                return callback(NO_ROWS_MESSAGE, NO_RESULTS)
             const aNewsAndEvent = rowsToNewsAndEventsList(rows)[0]  //only one result since queried by primary key
             callback(SUCCESSFUL_QUERY, aNewsAndEvent)
         })

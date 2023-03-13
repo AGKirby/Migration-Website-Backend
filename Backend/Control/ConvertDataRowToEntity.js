@@ -1,6 +1,16 @@
 import {Publication, Program, Institution, RecentNewsandEvents} from '../Entity/Entities.js'
 
-/* Public Utility Function called by DatabaseGateway */
+/**
+ * rowsToPublicationList
+ * Utility function for converting rows returned from the database 
+ * into a list of Publication entity objects, 
+ * with the type of Publication specified by the type parameter. 
+ * 
+ * @param {list<Row>}           rows                List of rows returned by the database query. 
+ * @param {string}              type                Type of publication data returned. Null if attribute Publication_Type exists in Row.
+ * 
+ * @return {list<Publication>}  publicationList     List of Publication entity objects converted. 
+ */
 export function rowsToPublicationList(rows, type = null) {
     const publicationList = []
     const tagsList = new ItemList()
@@ -37,7 +47,15 @@ function rowToPublication(row, tags = [], type) {
 }
 
 
-/* Public Utility Function called by DatabaseGateway */
+/**
+ * rowsToProgramList
+ * Utility function for converting rows returned from the database 
+ * into a list of Program entity objects.  
+ * 
+ * @param {list<Row>}           rows                List of rows returned by the database query. 
+ * 
+ * @return {list<Program>}      programList         List of Program entity objects converted. 
+ */
 export function rowsToProgramList(rows) {
     const programList = []
     const tagsList = new ItemList()
@@ -77,7 +95,15 @@ function rowToProgram(row, hostingInstitutions = [], tags = []) {
 }
 
 
-/* Public Utility Function called by DatabaseGateway */
+/**
+ * rowsToInstitutionList
+ * Utility function for converting rows returned from the database 
+ * into a list of Institution entity objects.  
+ * 
+ * @param {list<Row>}           rows                List of rows returned by the database query. 
+ * 
+ * @return {list<Institution>}  institutionList     List of Institution entity objects converted. 
+ */
 export function rowsToInstitutionList(rows) {
     const institutionList = []
     for(let i = 0; i < rows.length; i++) {
@@ -98,7 +124,15 @@ function rowToInstitution(row) {
 }
 
 
-/* Public Utility Function called by DatabaseGateway */
+/**
+ * rowsToNewsAndEventsList
+ * Utility function for converting rows returned from the database 
+ * into a list of NewsAndEvent entity objects.  
+ * 
+ * @param {list<Row>}           rows                List of rows returned by the database query. 
+ * 
+ * @return {list<NewsAndEvent>} newsAndEventsList   List of NewsAndEvent entity objects converted. 
+ */
 export function rowsToNewsAndEventsList(rows) {
     const newsAndEventsList = []
     for(let i = 0; i < rows.length; i++) {
