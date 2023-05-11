@@ -1,6 +1,6 @@
 import {Publication, Program, Institution} from '../Entity/Entities.js'
 import {query, closeDatabaseConnection} from '../Control/DatabaseUtility.js'
-import {rowsToPublicationList, rowsToProgramList, rowsToInstitutionList, rowsToNewsAndEventsList} from '../Control/ConvertDataRowToEntity.js'
+import {rowsToPublicationList, rowsToProgramList, rowsToInstitutionList, rowsToNewsAndEventsList, rowsToPeopleList} from '../Control/ConvertDataRowToEntity.js'
 
 const SUCCESSFUL_QUERY = null
 const NO_RESULTS = null
@@ -124,7 +124,7 @@ function getAllPublicationsByType(type, callback) {
 
 /**
  * getPublicationById
- * Queries the database for an entries from the Publication table
+ * Queries the database for an entry from the Publication table
  * with a specified id
  * and returns the entry as a Publication entity object
  * by calling the callback funtion passed as an argument. 
@@ -136,7 +136,8 @@ function getAllPublicationsByType(type, callback) {
  * @return {Publication}        result         Result of the query as a Publication object
  */
 export function getPublicationById(id, callback) {
-    const sql = `SELECT p.ID, p.Title, p.Author, p.Date, p.Box_File_ID, ph.Tag, p.Publication_File 
+    const sql = `SELECT p.ID, p.Title, p.Author, p.Date, p.Box_File_ID, ph.Tag, 
+                 p.Publication_File, p.Publication_Type, p.Publication_File_Type 
                  FROM publication p 
                  LEFT JOIN publication_has ph ON p.ID = ph.Publication_ID
                  WHERE p.ID = ?
@@ -189,7 +190,7 @@ export function getAllPrograms(callback) {
 
 /**
  * getProgramById
- * Queries the database for an entries from the Program table
+ * Queries the database for an entry from the Program table
  * with a specified id
  * and returns the entry as a Program entity object
  * by calling the callback funtion passed as an argument. 
@@ -235,7 +236,7 @@ export function getProgramById(id, callback) {
  * @return {list<Institution>}  results        Results of the query as a list of Institution objects
  */
 export function getAllInstitutions(callback) {
-    const sql = `SELECT i.ID, i.Name, i.Affiliation, i.URL 
+    const sql = `SELECT i.ID, i.Name, i.Affiliation, i.Location, i.URL 
                  FROM institution i`
     const inputValues = []
     try {
@@ -253,7 +254,7 @@ export function getAllInstitutions(callback) {
 
 /**
  * getInstitutionById
- * Queries the database for an entries from the Institution table
+ * Queries the database for an entry from the Institution table
  * with a specified id
  * and returns the entry as a Institution entity object
  * by calling the callback funtion passed as an argument. 
@@ -265,7 +266,7 @@ export function getAllInstitutions(callback) {
  * @return {Institution}        result         Result of the query as a Institution object
  */
 export function getInstitutionById(id, callback) {
-    const sql = `SELECT i.ID, i.Name, i.Affiliation, i.URL 
+    const sql = `SELECT i.ID, i.Name, i.Affiliation, i.Location, i.URL 
                  FROM institution i 
                  WHERE i.ID = ?`
     const inputValues = [id]
@@ -313,7 +314,7 @@ export function getAllNewsAndEvents(callback) {
 
 /**
  * getNewsAndEventById
- * Queries the database for an entries from the NewsAndEvent table
+ * Queries the database for an entry from the NewsAndEvent table
  * with a specified id
  * and returns the entry as a NewsAndEvent entity object
  * by calling the callback funtion passed as an argument. 
@@ -335,6 +336,71 @@ export function getNewsAndEventById(id, callback) {
                 return callback(NO_ROWS_MESSAGE, NO_RESULTS)
             const aNewsAndEvent = rowsToNewsAndEventsList(rows)[0]  //only one result since queried by primary key
             callback(SUCCESSFUL_QUERY, aNewsAndEvent)
+        })
+    } catch(error) {
+        console.log("An error occurred!")
+        callback(error, NO_RESULTS)
+    }
+}
+
+
+/**
+ * getAllPeople
+ * Queries the database for all entries from the People table
+ * and returns all entities in a list of People entity objects
+ * by calling the callback funtion passed as an argument. 
+ * 
+ * @param {function}            callback       Calls back with results from database query.
+ * 
+ * @return {string}             error          Error message, null if query was successful
+ * @return {list<People>}       results        Results of the query as a list of People objects
+ */
+export function getAllPeople(callback) {
+    const sql = `SELECT p.ID, p.Name, pp.Position, i.Name AS Institution_Name, p.Institution_ID, p.URL 
+                 FROM People p 
+                 LEFT JOIN People_Position pp ON pp.ID = p.Position_ID
+                 LEFT JOIN Institution i ON i.ID = p.Institution_ID
+                 ORDER BY p.ID;`
+    const inputValues = []
+    try {
+        query(sql, inputValues, (rows) => {
+            if(rows.length === NO_ROWS_SELECTED) 
+                return callback(NO_ROWS_MESSAGE, NO_RESULTS)
+            const peopleList = rowsToPeopleList(rows)
+            callback(SUCCESSFUL_QUERY, peopleList)
+        })
+    } catch(error) {
+        console.log("An error occurred!")
+        callback(error, NO_RESULTS)
+    }
+}
+
+/**
+ * getNewsAndEventById
+ * Queries the database for an entry from the People table
+ * with a specified id
+ * and returns the entry as a People entity object
+ * by calling the callback funtion passed as an argument. 
+ * 
+ * @param {int}                 id             Database ID of the tuple to return.
+ * @param {function}            callback       Calls back with results from database query.
+ * 
+ * @return {string}             error          Error message, null if query was successful
+ * @return {People}             result         Result of the query as a People object
+ */
+export function getPeopleById(id, callback) {
+    const sql = `SELECT p.ID, p.Name, pp.Position, i.Name AS Institution_Name, p.Institution_ID, p.URL 
+                 FROM People p 
+                 LEFT JOIN People_Position pp ON pp.ID = p.Position_ID
+                 LEFT JOIN Institution i ON i.ID = p.Institution_ID
+                 WHERE p.ID = ?`
+    const inputValues = [id]
+    try {
+        query(sql, inputValues, (rows) => {
+            if(rows.length === NO_ROWS_SELECTED) 
+                return callback(NO_ROWS_MESSAGE, NO_RESULTS)
+            const aPeople = rowsToPeopleList(rows)[0]  //only one result since queried by primary key
+            callback(SUCCESSFUL_QUERY, aPeople)
         })
     } catch(error) {
         console.log("An error occurred!")

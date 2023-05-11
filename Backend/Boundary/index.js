@@ -8,7 +8,8 @@ app.use(cors());
 app.use(express.json())
 
 import { getSearchableItems, getAllPublications, getAllArtworks, getAllVideos, getAllExcerpts, getPublicationById, 
-         getAllPrograms, getProgramById, getAllInstitutions } from './DatabaseGateway.js'
+         getAllPrograms, getProgramById, getAllInstitutions, getInstitutionById, getAllNewsAndEvents, getNewsAndEventById,
+         getAllPeople, getPeopleById } from './DatabaseGateway.js'
 
 // Route to get all publications
 app.get("/api/getSearchableItems", (req, res) => {
@@ -104,8 +105,8 @@ app.get("/api/getAllInstitutions", (req, res) => {
 
 // Route to get a program by id
 app.get("/api/getInstitutionById/:id", (req, res) => {
-   const id = req.params.id
-   getInstitutionById(id, (err, result) => {
+    const id = req.params.id
+    getInstitutionById(id, (err, result) => {
         if(err) {
             console.log(err)
         } 
@@ -125,8 +126,29 @@ app.get("/api/getAllNewsAndEvents", (req, res) => {
 
 // Route to get a program by id
 app.get("/api/getNewsAndEventById/:id", (req, res) => {
-   const id = req.params.id
-   getNewsAndEventById(id, (err, result) => {
+    const id = req.params.id
+    getNewsAndEventById(id, (err, result) => {
+        if(err) {
+            console.log(err)
+        } 
+        res.send(result)
+    });   
+});
+
+// Route to get all programs
+app.get("/api/getAllPeople", (req, res) => {
+    getAllPeople((err, result) => {
+         if(err) {
+             console.log(err)
+         } 
+         res.send(result)
+     });   
+});
+
+// Route to get a program by id
+app.get("/api/getPeopleById/:id", (req, res) => {
+    const id = req.params.id
+    getPeopleById(id, (err, result) => {
         if(err) {
             console.log(err)
         } 

@@ -1,4 +1,4 @@
-import {Publication, Program, Institution, RecentNewsandEvents} from '../Entity/Entities.js'
+import {Publication, Program, Institution, RecentNewsandEvents, People} from '../Entity/Entities.js'
 
 /**
  * dataToPublicationList
@@ -151,6 +151,45 @@ export function dataToNewsAndEvents(data) {
     return new RecentNewsandEvents(
         data.ID,
         data.Name,
+        data.URL
+    )
+}
+
+
+/**
+ * dataToPeopleList
+ * Utility function for converting json array data returned from the API 
+ * into a list of People entity objects.  
+ * 
+ * @param {JSON}                data                List of data returned by the API. 
+ * 
+ * @return {list<People>}       peopleList          List of People entity objects converted. 
+ */
+export function dataToPeopleList(data) {
+    const peopleList = []
+    for(let i = 0; i < data.length; i++) {
+        const aPeople = dataToPeople(data[i])
+        peopleList.push(aPeople)
+    }
+    return peopleList
+}
+
+/**
+ * dataToPeople
+ * Utility function for converting json object data returned from the API 
+ * into a People entity object.  
+ * 
+ * @param {JSON}                data                Data returned by the API. 
+ * 
+ * @return {People}             aPeople             People entity object converted. 
+ */
+export function dataToPeople(data) {
+    return new People(
+        data.ID,
+        data.Name,
+        data.Position,
+        data.InstitutionName,
+        data.InstitutionId,
         data.URL
     )
 }

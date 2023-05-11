@@ -5,6 +5,23 @@ INSERT INTO publication_type (Publication_Type) VALUES ("Video");  -- Including 
 INSERT INTO publication_type (Publication_Type) VALUES ("Excerpt");
 
 
+-- Institution initial values
+INSERT INTO institution (ID, Name, Affiliation, Location, URL)
+    VALUES (1, "Oregon State University — Cascades", "Public", "Bend, OR, US", "https://osucascades.edu");
+INSERT INTO institution (ID, Name, Affiliation, Location, URL)
+    VALUES (2, "Free University Berlin", "Public", "Berlin, Germany", "https://www.fu-berlin.de/en/index.html");
+INSERT INTO institution (ID, Name, Affiliation, Location, URL)
+    VALUES (3, "University Muenster", "Public", "Muensterr, Germany", "https://www.uni-muenster.de/en/");
+
+
+-- People initial values
+INSERT INTO People (ID, Name, Position_ID, Institution_ID, URL) VALUES (1, "Dr. Jennifer A. Reimer", 1, 1, "https://osucascades.edu/people/jennifer-reimer-recio")
+INSERT INTO People (ID, Name, Position_ID, Institution_ID, URL) VALUES (2, "Dr. Stefan Maneval", 1, 2, "https://www.bgsmcs.fu-berlin.de/about/alumni_doctoral_fellows/stefan_maneval.html")
+INSERT INTO People (ID, Name, Position_ID, Institution_ID, URL) VALUES (3, "Dr. Silvia Schulterrmandl", 2, 3, "https://www.uni-muenster.de/Anglistik/Research/Amerikanistik/team/prof.dr.silviaschultermandl.html")
+
+
+-- TODO: ASK ABOUT - 
+
 -- Publication initial values
 INSERT INTO publication (ID, Title, Author, Date, Box_File_ID, Publication_Type) 
     VALUES (1, "Press Kit", "Jennifer Reimer Recio", DATE('2022-03-16'), "1005900768212", "Publication", LOAD_FILE('C:\Users\adamg\Documents\College\12 Winter 2023\Capstone\MigrationWebsiteBackend\Database Setup\Blobs\HelloWorld.txt'), "text/plain");
@@ -41,14 +58,7 @@ INSERT INTO program (ID, Name, Type, Start_Date, End_Date, URL)
     VALUES (4, "Student Migration Camp", "Camp", DATE('2023-06-12'), DATE('2023-06-16'), "oregonstate.edu");
 
 
--- Institution initial values
-INSERT INTO institution (ID, Name, Affiliation, Location, URL)
-    VALUES (1, "Oregon State University — Cascades", "Public", "Bend, OR, US", "https://osucascades.edu");
-INSERT INTO institution (ID, Name, Affiliation, Location, URL)
-    VALUES (2, "Free University Berlin", "Public", "Berlin, Germany", "https://www.fu-berlin.de/en/index.html");
-INSERT INTO institution (ID, Name, Affiliation, Location, URL)
-    VALUES (3, "University Muenster", "Public", "Muensterr, Germany", "https://www.uni-muenster.de/en/");
-
+-- TODO: Fill in once know values for above tables: 
 
 -- Institution_Hosts initial values
 INSERT INTO institution_hosts (Program_ID, Institution_ID) VALUES(1, 1);
@@ -90,9 +100,3 @@ INSERT INTO program_has (Program_ID, Tag) VALUES (4, "United States");
 INSERT INTO People_Position (ID, Position) VALUES (1, "President")
 INSERT INTO People_Position (ID, Position) VALUES (2, "Vice President")
 INSERT INTO People_Position (ID, Position) VALUES (3, "Advisory Board Member")
-
-
--- People initial values
-INSERT INTO People (ID, Name, Position_ID, Institution_ID, URL) VALUES (1, "Dr. Jennifer A. Reimer", 1, 1, "https://osucascades.edu/people/jennifer-reimer-recio")
-INSERT INTO People (ID, Name, Position_ID, Institution_ID, URL) VALUES (2, "Dr. Stefan Maneval", 1, 2, "https://www.bgsmcs.fu-berlin.de/about/alumni_doctoral_fellows/stefan_maneval.html")
-INSERT INTO People (ID, Name, Position_ID, Institution_ID, URL) VALUES (3, "Dr. Silvia Schulterrmandl", 2, 3, "https://www.uni-muenster.de/Anglistik/Research/Amerikanistik/team/prof.dr.silviaschultermandl.html")

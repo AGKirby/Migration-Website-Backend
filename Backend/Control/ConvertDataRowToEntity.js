@@ -1,4 +1,4 @@
-import {Publication, Program, Institution, RecentNewsandEvents} from '../Entity/Entities.js'
+import {Publication, Program, Institution, RecentNewsandEvents, People} from '../Entity/Entities.js'
 
 /**
  * rowsToPublicationList
@@ -119,6 +119,7 @@ function rowToInstitution(row) {
         row.ID,
         row.Name,
         row.Affiliation,
+        row.Location,
         row.URL
     )
 }
@@ -147,6 +148,37 @@ function rowToNewsAndEvents(row) {
     return new RecentNewsandEvents(
         row.ID,
         row.Name,
+        row.URL
+    )
+}
+
+
+/**
+ * rowsToPeopleList
+ * Utility function for converting rows returned from the database 
+ * into a list of People entity objects.  
+ * 
+ * @param {list<Row>}           rows                List of rows returned by the database query. 
+ * 
+ * @return {list<People>}       peopleList          List of Pepole entity objects converted. 
+ */
+export function rowsToPeopleList(rows) {
+    const peopleList = []
+    for(let i = 0; i < rows.length; i++) {
+        const aPeople = rowToPeople(rows[i])
+        peopleList.push(aPeople)
+    }
+    return peopleList
+}
+
+/* Private Helper Function */
+function rowToPeople(row) {
+    return new People(
+        row.ID,
+        row.Name,
+        row.Position,
+        row.InstitutionName,
+        row.InstitutionId,
         row.URL
     )
 }

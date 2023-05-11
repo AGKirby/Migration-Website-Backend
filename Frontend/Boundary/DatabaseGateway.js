@@ -3,7 +3,8 @@ import Axios from 'axios'
 import { dataToPublicationList, dataToPublication, 
          dataToProgramList, dataToProgram, 
          dataToInstitutionList, dataToInstitution,
-         dataToNewsAndEventsList, dataToNewsAndEvents } from '../Control/ConvertJsonToEntity.js'
+         dataToNewsAndEventsList, dataToNewsAndEvents,
+         dataToPeopleList, dataToPeople } from '../Control/ConvertJsonToEntity.js'
 
 const NO_RESULTS = null
 const SUCCESS_STATUS = 200
@@ -271,5 +272,50 @@ export function getNewsAndEventById(id, callback) {
         }
         const aNewsAndEvent = dataToNewsAndEvents(res.data)
         callback(aNewsAndEvent)
+    });
+}
+
+
+/**
+ * getAllPeople
+ * Queries the API for all People from the database, 
+ * and returns all entities in a list of People entity objects
+ * by calling the callback funtion passed as an argument. 
+ * Returns null if not results found or an error occurred.
+ * 
+ * @param {function}            callback            Calls back with results from database query.
+ * 
+ * @return {list<People>}       peopleList          Results of the request as a list of People objects
+ */
+export function getAllPeople(callback) {
+    Axios.get(`${BASE_URL}/getAllPeople`).then((res)=>{
+        if(res.status !== SUCCESS_STATUS || res.data === NO_RESULTS) {
+            callback(NO_RESULTS)
+        }
+        const peopleList = dataToPeopleList(res.data)
+        callback(peopleList)
+    });
+}
+
+/**
+ * getPeopleById
+ * Queries the API for a People from the database, 
+ * identified by the id argument provided,
+ * and returns a People entity object
+ * by calling the callback funtion passed as an argument. 
+ * Returns null if not results found or an error occurred.
+ * 
+ * @param {int}                 id                  Database ID of the People to request from the API.
+ * @param {function}            callback            Calls back with results from database query.
+ * 
+ * @return {People}             aPeople             Result of the request as a People object
+ */
+export function getPeopleById(id, callback) {
+    Axios.get(`${BASE_URL}/getPeopleById/${id}`).then((res)=>{
+        if(res.status !== SUCCESS_STATUS || res.data === NO_RESULTS) {
+            callback(NO_RESULTS)
+        }
+        const aPeople = dataToPeople(res.data)
+        callback(aPeople)
     });
 }

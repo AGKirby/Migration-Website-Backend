@@ -40,10 +40,11 @@ export class Program {
 }
 
 export class Institution {
-    constructor(id, name, affiliation, institutionURL) {
+    constructor(id, name, affiliation, location, institutionURL) {
         this.id = id                                    // integer, unique identifer
         this.name = name                                // string
         this.affiliation = affiliation                  // string
+        this.location = location                        // string
         this.institutionURL = institutionURL            // string
     }
 }
@@ -53,5 +54,16 @@ export class RecentNewsandEvents {
         this.id = id                                    // integer, unique identifer
         this.name = name                                // string
         this.url = url                                  // string
+    }
+}
+
+export class People {
+    constructor(id, name, position, institutionName, institutionId, url) {
+        this.id = id
+        this.name = name
+        this.position = position
+        this.institutionName = institutionName
+        this.institutionId = institutionId
+        this.url = url
     }
 }
