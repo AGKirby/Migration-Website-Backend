@@ -97,8 +97,8 @@ CREATE TABLE People
   Name VARCHAR(32) NOT NULL,
   Position_ID INT NOT NULL,
   Institution_ID INT, -- nullable
-  URL VARCHAR(64) NOT NULL,
+  URL VARCHAR(128) NOT NULL,
   PRIMARY KEY (ID),
-  FOREIGN KEY (Position_ID) REFERENCES People_Position(ID)
+  FOREIGN KEY (Position_ID) REFERENCES People_Position(ID),
   FOREIGN KEY (Institution_ID) REFERENCES Institution(ID)
 );

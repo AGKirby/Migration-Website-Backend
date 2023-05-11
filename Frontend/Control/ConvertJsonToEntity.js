@@ -115,6 +115,7 @@ export function dataToInstitution(data) {
         data.id,
         data.name,
         data.affiliation,
+        data.location,
         data.institutionURL
     )
 }
@@ -185,11 +186,11 @@ export function dataToPeopleList(data) {
  */
 export function dataToPeople(data) {
     return new People(
-        data.ID,
-        data.Name,
-        data.Position,
-        data.InstitutionName,
-        data.InstitutionId,
-        data.URL
+        data.id,
+        data.name,
+        data.position,
+        data.institutionName,
+        data.institutionId,
+        data.url
     )
 }

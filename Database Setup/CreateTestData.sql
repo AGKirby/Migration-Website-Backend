@@ -6,7 +6,7 @@ INSERT INTO publication_type (Publication_Type) VALUES ("Excerpt");
 
 
 -- Publication initial values
-INSERT INTO publication (ID, Title, Author, Date, Box_File_ID, Publication_Type) 
+INSERT INTO publication (ID, Title, Author, Date, Box_File_ID, Publication_Type, Publication_File, Publication_File_Type) 
     VALUES (1, "Press Kit", "Jennifer Reimer Recio", DATE('2022-03-16'), "1005900768212", "Publication", LOAD_FILE('C:\Users\adamg\Documents\College\12 Winter 2023\Capstone\MigrationWebsiteBackend\Database Setup\Blobs\HelloWorld.txt'), "text/plain");
 INSERT INTO publication (ID, Title, Author, Date, Box_File_ID, Publication_Type) 
     VALUES (2, "Press Release 1", "Jennifer Reimer Recio,Stefan Maneval", DATE('2022-03-17'), "932526455922", "Publication");
@@ -87,12 +87,12 @@ INSERT INTO program_has (Program_ID, Tag) VALUES (4, "United States");
 
 
 -- People_Positon initial values
-INSERT INTO People_Position (ID, Position) VALUES (1, "President")
-INSERT INTO People_Position (ID, Position) VALUES (2, "Vice President")
-INSERT INTO People_Position (ID, Position) VALUES (3, "Advisory Board Member")
+INSERT INTO People_Position (ID, Position) VALUES (1, "President");
+INSERT INTO People_Position (ID, Position) VALUES (2, "Vice President");
+INSERT INTO People_Position (ID, Position) VALUES (3, "Advisory Board Member");
 
 
 -- People initial values
-INSERT INTO People (ID, Name, Position_ID, Institution_ID, URL) VALUES (1, "Dr. Jennifer A. Reimer", 1, 1, "https://osucascades.edu/people/jennifer-reimer-recio")
-INSERT INTO People (ID, Name, Position_ID, Institution_ID, URL) VALUES (2, "Dr. Stefan Maneval", 1, 2, "https://www.bgsmcs.fu-berlin.de/about/alumni_doctoral_fellows/stefan_maneval.html")
-INSERT INTO People (ID, Name, Position_ID, Institution_ID, URL) VALUES (3, "Dr. Silvia Schulterrmandl", 2, 3, "https://www.uni-muenster.de/Anglistik/Research/Amerikanistik/team/prof.dr.silviaschultermandl.html")
+INSERT INTO People (ID, Name, Position_ID, Institution_ID, URL) VALUES (1, "Dr. Jennifer A. Reimer", 1, 1, "https://osucascades.edu/people/jennifer-reimer-recio");
+INSERT INTO People (ID, Name, Position_ID, Institution_ID, URL) VALUES (2, "Dr. Stefan Maneval", 1, 2, "https://www.bgsmcs.fu-berlin.de/about/alumni_doctoral_fellows/stefan_maneval.html");
+INSERT INTO People (ID, Name, Position_ID, Institution_ID, URL) VALUES (3, "Dr. Silvia Schulterrmandl", 2, 3, "https://www.uni-muenster.de/Anglistik/Research/Amerikanistik/team/prof.dr.silviaschultermandl.html");

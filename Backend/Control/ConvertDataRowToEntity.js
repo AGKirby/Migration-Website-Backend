@@ -177,8 +177,8 @@ function rowToPeople(row) {
         row.ID,
         row.Name,
         row.Position,
-        row.InstitutionName,
-        row.InstitutionId,
+        row.Institution_Name,
+        row.Institution_ID,
         row.URL
     )
 }
